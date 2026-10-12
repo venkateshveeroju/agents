@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: agents
+
+  ai:
+    mcp:
+      client:
+        type: SYNC
+        request-timeout: 60s
+        stdio:
+          connections:
+            github:
+              command: docker
+              args:
+                - run
+                - -i
+                - --rm
+                - -e
+                - GITHUB_PERSONAL_ACCESS_TOKEN
+                - ghcr.io/github/github-mcp-server
+              env:
+                GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_PERSONAL_ACCESS_TOKEN}
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        model: gpt-4o
+        temperature: 0.2
+sdlc:
+  agent:
+    max-iterations: 3
